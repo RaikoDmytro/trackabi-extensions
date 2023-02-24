@@ -2,13 +2,12 @@ const config = {
 	trackabiDesktopHost: 'http://localhost',
 	trackabiDesktopPort: 23498
 }
-
 let lastTab = {
 	url: "",
 	title: ""
 }
 
-const { windows, tabs, runtime } = chrome
+const { windows, tabs, runtime } = browser
 
 const getHostFromUrl = (url) => url.split("/")[2] || url
 
@@ -19,8 +18,8 @@ const sendActivity = (requestData) => {
 		mode: 'no-cors'
 	}
 	
-	fetch(
-		`${config.trackabiDesktopHost}:${config.trackabiDesktopPort}/${requestData}`,
+	fetch( 
+		`${config.trackabiDesktopHost}:${config.trackabiDesktopPort}/${requestData}`, 
 		requestOptions)
 		.then(() => {})
 }
@@ -31,10 +30,11 @@ const switchUrl = (tab) => {
 		return
 	}
 	lastTab = tab
+	
 	sendActivity(`
 		?url=${encodeURI(tab.url)}
 		&title=${encodeURI(tab.title)}
-		&browser=chrome
+		&browser=firefox
 		&host=${getHostFromUrl(tab.url)}
 		`)
 }
@@ -49,12 +49,12 @@ const sendSingleActiveTabOfAllWindows = (ws) => {
 
 const addListeners = () => {
 	tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-			switchUrl(tab)
+		switchUrl(tab)
 	})
 
-	tabs.onActivated.addListener(({ tabId }) => tabs.get(tabId, (tab) => switchUrl(tab)))
+	tabs.onActivated.addListener((tabId) => tabs.get(tabId, (tab) => switchUrl(tab)))
 
-	windows.onFocusChanged.addListener(() => {
+	windows.onFocusChanged.addListener(async () => {
 		windows.getAll({ populate: true }, (ws) => sendSingleActiveTabOfAllWindows(ws))
 	})
 }

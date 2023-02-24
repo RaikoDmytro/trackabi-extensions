@@ -5,11 +5,10 @@
   "manifest_version": 3,
   "permissions": [
     "activeTab",
-    "tabs",
-    "runtime"
+    "tabs"
   ],
   "background": {
-    "service_worker": "index.js"
+    "scripts": ["index.js"]
   },
   "action": {
     "default_icon": {

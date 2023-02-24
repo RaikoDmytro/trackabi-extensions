@@ -34,7 +34,7 @@ const switchUrl = (tab) => {
 	sendActivity(`
 		?url=${encodeURI(tab.url)}
 		&title=${encodeURI(tab.title)}
-		&browser=chrome
+		&browser=opera
 		&host=${getHostFromUrl(tab.url)}
 		`)
 }
