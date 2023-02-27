@@ -1,6 +1,6 @@
 const config = {
 	trackabiDesktopHost: 'http://localhost',
-	trackabiDesktopPort: 23498
+	trackabiDesktopPort: 43325
 }
 
 let lastTab = {
