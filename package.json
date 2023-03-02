@@ -1,0 +1,20 @@
+{
+  "name": "extension",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "grunt": "^1.6.1",
+    "grunt-contrib-concat": "^2.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build:all": "grunt concat:chrome"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RaikoDmytro/widget-chrome.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
