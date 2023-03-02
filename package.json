@@ -5,11 +5,21 @@
   "main": "index.js",
   "dependencies": {
     "grunt": "^1.6.1",
-    "grunt-contrib-concat": "^2.1.0"
+    "grunt-contrib-concat": "^2.1.0",
+    "grunt-contrib-copy": "^1.0.0"
   },
-  "devDependencies": {},
   "scripts": {
-    "build:all": "grunt concat:chrome"
+    "build": "grunt concat-all && grunt copy-images",
+    "build:all": "grunt concat-all",
+    "build:chrome": "grunt concat-chrome",
+    "build:edge": "grunt concat-edge",
+    "build:firefox": "grunt concat-firefox",
+    "build:opera": "grunt concat-opera",
+    "copy": "grunt copy-images",
+    "cope:images-chrome": "grunt copy-images-chrome",
+    "cope:images-edge": "grunt copy-images-edge",
+    "cope:images-firefox": "grunt copy-images-firefox",
+    "cope:images-opera": "grunt copy-images-opera"
   },
   "repository": {
     "type": "git",

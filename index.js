@@ -1,3 +1,12 @@
+const config = {
+	trackabiDesktopHost: 'http://localhost',
+	trackabiDesktopPort: 43325
+}
+
+let lastTab = {
+	url: "",
+	title: ""
+}
 
 const getHostFromUrl = (url) => url.split("/")[2] || url
 
@@ -7,7 +16,7 @@ const sendActivity = (requestData) => {
 		redirect: 'follow',
 		mode: 'no-cors'
 	}
-	
+
 	fetch(
 		`${config.trackabiDesktopHost}:${config.trackabiDesktopPort}/${requestData}`,
 		requestOptions)
@@ -23,7 +32,7 @@ const switchUrl = (tab) => {
 	sendActivity(`
 		?url=${encodeURI(tab.url)}
 		&title=${encodeURI(tab.title)}
-		&browser=chrome
+		&browser=${browserName}
 		&host=${getHostFromUrl(tab.url)}
 		`)
 }
@@ -40,9 +49,9 @@ const addListeners = () => {
 	tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 		switchUrl(tab)
 	})
-	
+
 	tabs.onActivated.addListener(({ tabId }) => tabs.get(tabId, (tab) => switchUrl(tab)))
-	
+
 	windows.onFocusChanged.addListener(() => {
 		windows.getAll({ populate: true }, (ws) => sendSingleActiveTabOfAllWindows(ws))
 	})
