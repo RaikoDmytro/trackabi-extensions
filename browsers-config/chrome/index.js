@@ -1,3 +1,3 @@
-const browserName = 'chrome'
+const browserName = 'google chrome'
 
 const { windows, tabs, runtime } = chrome

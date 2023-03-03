@@ -16,30 +16,40 @@ module.exports = function(grunt) {
 			opera: {
 				src: ['./browsers-config/opera/index.js', './index.js'],
 				dest: 'builds/opera/index.js'
+			},
+			brave: {
+				src: ['./browsers-config/brave/index.js', './index.js'],
+				dest: 'builds/brave/index.js'
 			}
 		},
 		copy: {
 			imgChrome: {
 				expand: true,
-				dest: './builds/chrome/images/',
+				dest: './builds/chrome/',
 				src: './images/*',
 				filter: 'isFile'
 			},
 			imgEdge: {
 				expand: true,
-				dest: './builds/edge/images/',
+				dest: './builds/edge/',
 				src: './images/*',
 				filter: 'isFile'
 			},
 			imgFirefox: {
 				expand: true,
-				dest: './builds/firefox/images/',
+				dest: './builds/firefox/',
 				src: './images/*',
 				filter: 'isFile'
 			},
 			imgOpera: {
 				expand: true,
-				dest: './builds/opera/images/',
+				dest: './builds/opera/',
+				src: './images/*',
+				filter: 'isFile'
+			},
+			imgBrave: {
+				expand: true,
+				dest: './builds/brave/',
 				src: './images/*',
 				filter: 'isFile'
 			}
@@ -53,10 +63,12 @@ module.exports = function(grunt) {
 	grunt.registerTask('concat-edge', ['concat:edge'])
 	grunt.registerTask('concat-firefox', ['concat:firefox'])
 	grunt.registerTask('concat-opera', ['concat:opera'])
-	grunt.registerTask('concat-all', ['concat:chrome', 'concat:edge', 'concat:firefox', 'concat:opera'])
+	grunt.registerTask('concat-brave', ['concat:brave'])
+	grunt.registerTask('concat-all', ['concat:chrome', 'concat:edge', 'concat:firefox', 'concat:opera', 'concat:brave'])
 	grunt.registerTask('copy-images-chrome', ['copy:imgChrome'])
 	grunt.registerTask('copy-images-edge', ['copy:imgEdge'])
 	grunt.registerTask('copy-images-firefox', ['copy:imgFirefox'])
 	grunt.registerTask('copy-images-opera', ['copy:imgOpera'])
-	grunt.registerTask('copy-images', ['copy:imgChrome', 'copy:imgEdge', 'copy:imgFirefox', 'copy:imgOpera'])
+	grunt.registerTask('copy-images-brave', ['copy:imgBrave'])
+	grunt.registerTask('copy-images', ['copy:imgChrome', 'copy:imgEdge', 'copy:imgFirefox', 'copy:imgOpera', 'copy:imgBrave'])
 }

@@ -1,3 +1,3 @@
-const browserName = 'microsoft edge'
+const browserName = 'brave browser'
 
 const { windows, tabs, runtime } = chrome

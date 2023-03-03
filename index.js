@@ -12,7 +12,7 @@ const getHostFromUrl = (url) => url.split("/")[2] || url
 
 const sendActivity = (requestData) => {
 	const requestOptions = {
-		method: 'POST',
+		method: 'GET',
 		redirect: 'follow',
 		mode: 'no-cors'
 	}
@@ -30,10 +30,10 @@ const switchUrl = (tab) => {
 	}
 	lastTab = tab
 	sendActivity(`
-		?url=${encodeURI(tab.url)}
-		&title=${encodeURI(tab.title)}
+		?url=${encodeURIComponent(tab.url)}
+		&title=${encodeURIComponent(tab.title)}
 		&browser=${browserName}
-		&host=${getHostFromUrl(tab.url)}
+		&host=${encodeURIComponent(getHostFromUrl(tab.url))}
 		`)
 }
 
