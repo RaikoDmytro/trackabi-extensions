@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RaikoDmytro/widget-chrome.git"
+    "url": "git@gitlab.giantleaplab.com:trackabi/trackabi-browser-url-tracker.git"
   },
   "author": "",
   "license": "ISC"
