@@ -1,14 +1,43 @@
-const config = {
-	trackabiDesktopHost: 'http://localhost',
-	trackabiDesktopPort: 43325
+const browserNames = {
+	safari: 'safari',
+	chrome: 'google chrome',
+	'google-chrome': 'google chrome',
+	'google chrome': 'google chrome',
+	firefox: 'firefox',
+	'microsoft-edge': 'microsoft edge',
+	'microsoft edge': 'microsoft edge',
+	'microsoft-edge-stable': 'microsoft edge',
+	edge: 'edge',
+	opera: 'opera',
+	brave: 'brave browser',
+	'brave browser': 'brave browser',
+	'brave-browser': 'brave browser',
 }
 
-let lastTab = {
-	url: "",
-	title: ""
-}
+let browserName = null;
 
-const getHostFromUrl = (url) => url.split("/")[2] || url
+(() => {
+	const browserBrands = navigator?.userAgentData?.brands
+	if (browserBrands) {
+		browserBrands.forEach(({ brand }) => {
+			const brandLowerCase = brand.toLowerCase()
+			if (browserNames[brandLowerCase]) {
+				browserName = browserNames[brandLowerCase]
+			}
+		})
+	}
+
+	if (!browserName) {
+		if (navigator.userAgent.toLowerCase().indexOf('firefox')) {
+			browserName = 'firefox'
+		}
+	}
+})()
+
+function stringNotUrl(str) {
+	const regExp = new RegExp(/^(https?|ftp|POP3|SMTP):\/\/.+$/);
+	return !regExp.test(str);
+}
 
 const sendActivity = (requestData) => {
 	const requestOptions = {
@@ -18,24 +47,22 @@ const sendActivity = (requestData) => {
 	}
 
 	fetch(
-		`${config.trackabiDesktopHost}:${config.trackabiDesktopPort}/${requestData}`,
+		`http://localhost:43325/${requestData}`,
 		requestOptions)
 		.then(() => {})
 }
 
 const switchUrl = (tab) => {
-	if ((tab.url === lastTab.url) && (tab.title === lastTab.title)
-		|| !tab.url || tab.url === '') {
-		return
+	if (tab.url && tab.url !== '' && stringNotUrl(tab.title)) {
+		sendActivity(`
+			?name=${encodeURIComponent(browserName)}
+			&title=${encodeURIComponent(tab.title)}
+			&url=${encodeURIComponent(tab.url)}
+			`)
 	}
-	lastTab = tab
-	sendActivity(`
-		?url=${encodeURIComponent(tab.url)}
-		&title=${encodeURIComponent(tab.title)}
-		&browser=${browserName}
-		&host=${encodeURIComponent(getHostFromUrl(tab.url))}
-		`)
 }
+
+// create function that will cat host from url address
 
 const sendSingleActiveTabOfAllWindows = (ws) => {
 	for (const window of ws) {
@@ -64,3 +91,4 @@ runtime.onStartup.addListener(() => addListeners())
 runtime.onInstalled.addListener(() => addListeners())
 
 addListeners()
+

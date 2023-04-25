@@ -1,74 +1,34 @@
 module.exports = function(grunt) {
 	grunt.initConfig({
+		copy: {
+			main: {
+				files: [
+					{ expand: true, src: './images/*', dest: './dist/builds/chrome/', filter: 'isFile' },
+					{ expand: true, src: './images/*', dest: './dist/builds/edge/', filter: 'isFile' },
+					{ expand: true, src: './images/*', dest: './dist/builds/opera/', filter: 'isFile' },
+					{ expand: true, src: './images/*', dest: './dist/builds/firefox/', filter: 'isFile' },
+					{ expand: true, cwd: './src/general/', dest: './dist/builds/chrome/', src: '**', filter: 'isFile' },
+					{ expand: true, cwd: './src/general/', dest: './dist/builds/edge/', src: '**', filter: 'isFile' },
+					{ expand: true, cwd: './src/general/', dest: './dist/builds/opera/', src: '**', filter: 'isFile' },
+					{ expand: true, cwd: './src/firefox/', dest: './dist/builds/firefox/', src: '**', filter: 'isFile' },
+				],
+			},
+		},
 		concat: {
-			chrome: {
-				src: ['./browsers-config/chrome/index.js', './index.js'],
-				dest: 'builds/chrome/index.js'
-			},
-			edge: {
-				src: ['./browsers-config/edge/index.js', './index.js'],
-				dest: 'builds/edge/index.js'
-			},
-			firefox: {
-				src: ['./browsers-config/firefox/index.js', './index.js'],
-				dest: 'builds/firefox/index.js'
-			},
-			opera: {
-				src: ['./browsers-config/opera/index.js', './index.js'],
-				dest: 'builds/opera/index.js'
-			},
-			brave: {
-				src: ['./browsers-config/brave/index.js', './index.js'],
-				dest: 'builds/brave/index.js'
+			index: {
+				files: {
+					'dist/builds/chrome/index.js': ['./src/general/index.js', './index.js'],
+					'dist/builds/edge/index.js': ['./src/general/index.js', './index.js'],
+					'dist/builds/opera/index.js': ['./src/general/index.js', './index.js'],
+					'dist/builds/firefox/index.js': ['./src/firefox/index.js', './index.js'],
+				}
 			}
 		},
-		copy: {
-			imgChrome: {
-				expand: true,
-				dest: './builds/chrome/',
-				src: './images/*',
-				filter: 'isFile'
-			},
-			imgEdge: {
-				expand: true,
-				dest: './builds/edge/',
-				src: './images/*',
-				filter: 'isFile'
-			},
-			imgFirefox: {
-				expand: true,
-				dest: './builds/firefox/',
-				src: './images/*',
-				filter: 'isFile'
-			},
-			imgOpera: {
-				expand: true,
-				dest: './builds/opera/',
-				src: './images/*',
-				filter: 'isFile'
-			},
-			imgBrave: {
-				expand: true,
-				dest: './builds/brave/',
-				src: './images/*',
-				filter: 'isFile'
-			}
-		}
 	})
 
-	grunt.loadNpmTasks('grunt-contrib-concat')
 	grunt.loadNpmTasks('grunt-contrib-copy')
+	grunt.loadNpmTasks('grunt-contrib-concat')
 
-	grunt.registerTask('concat-chrome', ['concat:chrome'])
-	grunt.registerTask('concat-edge', ['concat:edge'])
-	grunt.registerTask('concat-firefox', ['concat:firefox'])
-	grunt.registerTask('concat-opera', ['concat:opera'])
-	grunt.registerTask('concat-brave', ['concat:brave'])
-	grunt.registerTask('concat-all', ['concat:chrome', 'concat:edge', 'concat:firefox', 'concat:opera', 'concat:brave'])
-	grunt.registerTask('copy-images-chrome', ['copy:imgChrome'])
-	grunt.registerTask('copy-images-edge', ['copy:imgEdge'])
-	grunt.registerTask('copy-images-firefox', ['copy:imgFirefox'])
-	grunt.registerTask('copy-images-opera', ['copy:imgOpera'])
-	grunt.registerTask('copy-images-brave', ['copy:imgBrave'])
-	grunt.registerTask('copy-images', ['copy:imgChrome', 'copy:imgEdge', 'copy:imgFirefox', 'copy:imgOpera', 'copy:imgBrave'])
+	grunt.registerTask('copy-files', ['copy:main',])
+	grunt.registerTask('concat-all', ['concat:index'])
 }

@@ -6,22 +6,11 @@
   "dependencies": {
     "grunt": "^1.6.1",
     "grunt-contrib-concat": "^2.1.0",
-    "grunt-contrib-copy": "^1.0.0"
+    "grunt-contrib-copy": "^1.0.0",
+    "zip-a-folder": "^1.1.5"
   },
   "scripts": {
-    "build": "grunt concat-all && grunt copy-images",
-    "build:all": "grunt concat-all",
-    "build:chrome": "grunt concat-chrome",
-    "build:edge": "grunt concat-edge",
-    "build:firefox": "grunt concat-firefox",
-    "build:opera": "grunt concat-opera",
-    "build:brave": "grunt concat-brave",
-    "copy:images": "grunt copy-images",
-    "cope:images-chrome": "grunt copy-images-chrome",
-    "cope:images-edge": "grunt copy-images-edge",
-    "cope:images-firefox": "grunt copy-images-firefox",
-    "cope:images-opera": "grunt copy-images-opera",
-    "cope:images-brave": "grunt copy-images-brave"
+    "build": "grunt copy-files && grunt concat-all && node release.js"
   },
   "repository": {
     "type": "git",

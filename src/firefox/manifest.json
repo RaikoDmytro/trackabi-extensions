@@ -1,15 +1,14 @@
 {
-  "name": "Trackabi tracker",
-  "version": "1.0",
-  "description": "",
+  "name": "Trackabi URL Tracker",
+  "version": "1.0.0",
+  "description": "This extension enables the Trackabi Desktop Timer application to log the URLs a user opens in his browser.",
   "manifest_version": 3,
   "permissions": [
     "activeTab",
-    "tabs",
-    "runtime"
+    "tabs"
   ],
   "background": {
-    "service_worker": "index.js"
+    "scripts": ["index.js"]
   },
   "action": {
     "default_icon": {
@@ -18,5 +17,6 @@
       "48": "images/icon48x48.png",
       "128": "images/icon128x128.png"
     }
-  }
+  },
+  "author": "Trackabi LLC"
 }
